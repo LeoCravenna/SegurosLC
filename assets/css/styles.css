@@ -1,0 +1,86 @@
+* {
+    font-family: Arial; 
+}
+  
+html {
+    min-height: 100%;
+    position: relative;
+    font-size: 14px; 
+}
+  
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}  
+
+body {
+    background-color: transparent;
+    margin: 0px;
+}
+
+/*//////////////////*/
+
+.container {
+    max-width: 960px;
+}
+
+#contenedor2 {
+    max-width: 1200px; 
+    margin-bottom: 100px;
+}
+      
+.pricing-header {
+    max-width: 700px;
+}
+
+#marca, #modelo, #anio, #tipoSeguro {
+    float: left;
+}
+
+.errores {
+    background-color: red;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    color: #fff;
+    display: none;
+    font-size: 14px;
+    padding: 8px;
+    float: right;
+} 
+
+/*//////////////////*/
+
+.selected{
+    cursor: pointer;
+}
+
+.selected:hover{
+    background-color: #0585C0;
+    color: white;
+}
+
+.seleccionada{
+    background-color: #0585C0;
+    color: white;
+}
+
+/*/////////////////*/
+
+.btn_confirmarAlerta {
+    margin-left: 10px;
+}
+
+.msj {
+    display: none;
+}
+
+/*////////////////*/
+
+.footer {
+    background-color: #007bff;
+}
+
+.copyright {
+    text-align: center;
+    color: white;
+}

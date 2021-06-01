@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguros LC - Simulador Cotizador de Seguros - Leonardo Cravenna</title>
+    <link rel="icon" type="image/ico" href="/assets/images/logo_web.ico" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-primary border-bottom shadow-sm">
+        <h5 class="text-white my-0 mr-md-auto font-weight-normal">Seguros LC</h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+          <a class="p-2 text-light" href="/index.html">Acerca de nosotros</a>
+          <a class="p-2 text-light" href="/index.html">Simulador</a>
+          <a class="p-2 text-light" href="/index.html">Contactanos</a>
+        </nav>
+    </div>
+      
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-6">Simulador de Cotización de Seguros</h1>
+        <p class="lead">¡Ahora puede cotizar su vehículo de una forma rápida y sencilla!</p>
+    </div>
+      
+    <div class="container">     
+        <form id="formu_cotizacion">
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label for="marca"><b>Marca</b></label>
+                            <div>
+                                <input id="marca" name="marca" class="form-control" type="text" placeholder="Ingrese la Marca" autocomplete="off" required/>
+                                <span id="mensaje1" class="errores">Coloque la Marca del Vehículo</span>
+                            </div>
+                        </div>   
+                    </td>    
+                </tr> 
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label for="modelo"><b>Modelo</b></label>
+                            <div>
+                                <input id="modelo" name="modelo" class="form-control" type="text" placeholder="Ingrese el Modelo" autocomplete="off" required/>
+                                <span id="mensaje2" class="errores">Coloque el Modelo del Vehículo</span>
+                            </div>    
+                        </div>    
+                    </td>    
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label for="anio"><b>Año</b></label>
+                            <div>
+                                <input id="anio" name="anio" class="form-control" type="number" placeholder="Ingrese el Año" autocomplete="off" required/>
+                                <span id="mensaje3" class="errores">Coloque el Año del Vehículo</span>
+                                <span id="mensaje3_1" class="errores">El Año ingresado es incorrecto</span>
+                                <span id="mensaje3_2" class="errores">El Año ingresado no puede ser superior al año actual</span>
+                            </div>    
+                        </div>    
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label for="tipoSeguro"><b>Tipo de Seguro</b></label>
+                            <div>
+                                <span id="mensaje4" class="errores">Seleccione una opción</span>
+                                <select id="tipoSeguro" name="tipoSeguro" class="form-control" required>
+                                
+                                    <option value="">Seleccione el tipo de seguro</option>
+                                    <!-- Las opciones las cargo por Ajax obteniendo un Json -->
+                                    
+                                </select>
+                            </div>
+                        </div>    
+                    </td>
+                </tr>        
+            </table>    
+
+            <div align="center">
+                <input id="btn_cotizar" type="submit" class="btn btn-outline-success" value="Simular Cotización" />
+                <input id="limpiarFormu" type="button" class="btn btn-outline-primary" value="Limpiar Campos del Formulario" />
+                <input id="btn_recuperar_datos" type="button" class="btn btn-outline-info" value="Recuperar Últimos Datos Simulados" />
+            </div>  
+            <br>
+
+            <div id="alerta" class="alert hide msj">
+                <!-- &times; -->
+                <button class="close" type="button" data-dismiss="alert" aria-hidden="true"></button>
+                <strong class="respuesta"></strong><span class="mensaje-alerta"></span>
+            </div>  
+                
+        </form>
+    
+    </div><!-- Cierre del Div Container -->    
+
+    <!-- ACÁ ARRANCA EL HISTORIAL DE COTIZACIONES SIMULADAS -->
+
+    <div id="contenedor2" class="container"> 
+
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <h2 class="display-6">Historial de Cotizaciones Simuladas</h2>
+        </div>
+
+        <div align="center">
+            <input id="btn_recuperarHistorial" type="button" class="btn btn-outline-info" value="Recuperar Historial Completo" />
+            <input id="btn_eliminarFila" type="button" class="btn btn-outline-warning" value="Borrar Simulación/es Seleccionada/s" />
+            <input id="btn_eliminarTodasFilas" type="button" class="btn btn-outline-danger" value="Borrar Historial Completo" />
+        </div>    
+        <br>
+
+        <div align="center">
+            <table class="table table-bordered" id="tablaSimulaciones">
+                <thead>
+                    <tr>
+                        <th><b>N°</b></th>
+                        <th><b>Marca</b></th>
+                        <th><b>Modelo</b></th>
+                        <th><b>Año</b></th>
+                        <th><b>Tipo de Seguro</b></th>
+                        <th><b>Valor Final </b><i>(IVA incluído)</i></th>
+                        <!--<th><b>Acción</b></th>-->
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <!-- se llena por medio de la función de javascript -> llenarTablaSimulaciones() -->
+                
+                </tbody>
+
+            </table>
+        </div>
+
+    </div><!-- Cierre del Div Container 2 -->
+
+    <footer class="footer mt-auto py-3">
+        <div class="container" align="center">
+          <span class="copyright">&copy; Seguros LC 2021 - Todos los derechos reservados.</span>
+        </div>
+    </footer>
+
+    <script src="assets/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/vendor/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/script2.js"></script>
+</body>
+</html> 

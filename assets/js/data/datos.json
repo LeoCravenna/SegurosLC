@@ -1,0 +1,18 @@
+[
+    {
+        "id": "Basico",
+        "tipo":"Básico"
+    },
+    {
+        "id": "Terceros_Completo",
+        "tipo":"Terceros Completo"
+    },
+    {
+        "id": "Terceros_Completo_Premium",
+        "tipo":"Terceros Completo Premium"
+    },
+    {
+        "id": "Todo_Riesgo",
+        "tipo":"Todo Riesgo"
+    }
+]
